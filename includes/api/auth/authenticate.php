@@ -9,8 +9,79 @@ class Authenticate {
     // API Key option name
     const API_KEY_OPTION = 'webweaver_api_keys';
 
-    public static function check_auth(\WP_REST_Request $request) {
-        // Try multiple auth methods
+    /**
+     * Authenticate REST requests early in the request cycle
+     * Called via init hook with priority 1 (very early)
+     */
+    public static function authenticate_rest_request() {
+        // Only process REST API requests
+        if (!defined('REST_REQUEST') || !REST_REQUEST) {
+            // Check if it's a REST request by examining the URL
+            $request_uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+            if (strpos($request_uri, '/wp-json/wp-mcp/v1/') === false) {
+                return;
+            }
+        }
+
+        // If user is already logged in, don't override
+        if (is_user_logged_in()) {
+            return;
+        }
+
+        // Try our custom auth methods
+        if (self::handle_bearer_token()) {
+            return;
+        }
+        
+        if (self::handle_api_key()) {
+            return;
+        }
+
+        if (self::handle_basic_auth()) {
+            return;
+        }
+    }
+
+    /**
+     * Handle custom authentication for REST API
+     * Called via rest_authentication_errors filter
+     */
+    public static function handle_custom_auth($auth_error) {
+        // If user is already authenticated via cookies/sessions, allow it
+        if (is_user_logged_in()) {
+            return $auth_error;
+        }
+
+        // Try our custom auth methods
+        if (self::handle_bearer_token()) {
+            return true;
+        }
+        
+        if (self::handle_api_key()) {
+            return true;
+        }
+
+        if (self::handle_basic_auth()) {
+            return true;
+        }
+
+        // If auth was attempted but failed, return error
+        $auth_header = self::get_auth_header();
+        if (!empty($auth_header)) {
+            return new \WP_Error(
+                'rest_forbidden',
+                'Authentication failed. Invalid credentials.',
+                ['status' => 401]
+            );
+        }
+
+        // Return original auth error if no custom auth attempted
+        return $auth_error;
+    }
+
+    public static function check_auth(\WP_REST_Request $request = null) {
+        // Try multiple auth methods (order: Bearer > API Key > Basic Auth > Session)
+        
         if (self::handle_bearer_token()) {
             return true;
         }
@@ -96,17 +167,22 @@ class Authenticate {
         }
 
         list($username, $password) = explode(':', $credentials, 2);
+        $username = sanitize_user($username);
         
-        // Try to authenticate user
-        $user = wp_authenticate($username, $password);
+        // Get user by login
+        $user = get_user_by('login', $username);
         
-        if (!is_wp_error($user)) {
-            wp_set_current_user($user->ID);
-            do_action('wp_login', $user->user_login, $user);
-            return true;
+        if (!$user) {
+            return false;
         }
-
-        return false;
+        
+        // Verify password
+        if (!wp_check_password($password, $user->user_pass, $user->ID)) {
+            return false;
+        }
+        
+        wp_set_current_user($user->ID);
+        return true;
     }
 
     /**

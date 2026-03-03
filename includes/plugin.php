@@ -20,6 +20,9 @@ class Plugin {
     }
 
     private function setup_hooks() {
+        // Authenticate via REST early (before rest_api_init)
+        add_action('init', [API\Auth\Authenticate::class, 'authenticate_rest_request'], 1);
+
         // Register REST routes.
         add_action('rest_api_init', [API\Routes::class, 'register_routes']);
 

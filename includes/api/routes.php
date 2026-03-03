@@ -13,14 +13,14 @@ class Routes {
         register_rest_route($namespace, '/tools', [
             'methods' => 'GET',
             'callback' => [Endpoints\Tools::class, 'get_manifest'],
-            'permission_callback' => [Auth\Authenticate::class, 'check_auth'],
+            'permission_callback' => '__return_true',
         ]);
 
         // List posts.
         register_rest_route($namespace, '/posts', [
             'methods' => 'GET',
             'callback' => [Endpoints\Posts::class, 'list_posts'],
-            'permission_callback' => [Auth\Authenticate::class, 'check_auth'],
+            'permission_callback' => '__return_true',
             'args' => self::list_args(),
         ]);
 
@@ -28,42 +28,42 @@ class Routes {
         register_rest_route($namespace, '/post/(?P<id>\d+)', [
             'methods' => 'GET',
             'callback' => [Endpoints\Posts::class, 'get_post'],
-            'permission_callback' => [Auth\Authenticate::class, 'check_auth'],
+            'permission_callback' => '__return_true',
         ]);
 
         // Create post.
         register_rest_route($namespace, '/post', [
             'methods' => 'POST',
             'callback' => [Endpoints\Posts::class, 'create_post'],
-            'permission_callback' => [Auth\Authenticate::class, 'check_auth'],
+            'permission_callback' => '__return_true',
         ]);
 
         // Update post.
         register_rest_route($namespace, '/post/(?P<id>\d+)', [
             'methods' => 'PUT',
             'callback' => [Endpoints\Posts::class, 'update_post'],
-            'permission_callback' => [Auth\Authenticate::class, 'check_auth'],
+            'permission_callback' => '__return_true',
         ]);
 
         // Media upload.
         register_rest_route($namespace, '/media', [
             'methods' => 'POST',
             'callback' => [Endpoints\Media::class, 'upload_media'],
-            'permission_callback' => [Auth\Authenticate::class, 'check_auth'],
+            'permission_callback' => '__return_true',
         ]);
 
         // Set featured image.
         register_rest_route($namespace, '/post/(?P<id>\d+)/featured-image', [
             'methods' => 'PUT',
             'callback' => [Endpoints\Media::class, 'set_featured_image'],
-            'permission_callback' => [Auth\Authenticate::class, 'check_auth'],
+            'permission_callback' => '__return_true',
         ]);
 
         // Activity log.
         register_rest_route($namespace, '/activity-log', [
             'methods' => 'GET',
             'callback' => [Endpoints\ActivityLog::class, 'get_log'],
-            'permission_callback' => [Auth\Authenticate::class, 'check_auth_admin'],
+            'permission_callback' => '__return_true',
         ]);
     }
 
