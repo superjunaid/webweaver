@@ -96,6 +96,9 @@ echo "✓ SHA256 saved to $RELEASES_DIR/$ZIP_FILE.sha256"
 echo ""
 echo "Step 4: Git commit..."
 
+# Change to repo root
+cd "$(git rev-parse --show-toplevel)" 2>/dev/null || cd "$(dirname "$0")/../.."
+
 # Stage changes
 git add "$PLUGIN_FILE"
 git add "$RELEASES_DIR/$ZIP_FILE"
