@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  wordpress:
+    image: wordpress:6.4-php8.1-apache
+    container_name: webweaver-wordpress
+    ports:
+      - "8888:80"
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_TABLE_PREFIX: wp_
+    volumes:
+      - ./:/var/www/html/wp-content/plugins/webweaver
+      - wordpress_data:/var/www/html
+    depends_on:
+      - mysql
+    networks:
+      - webweaver-network
+
+  mysql:
+    image: mysql:8.0
+    container_name: webweaver-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - webweaver-network
+
+volumes:
+  wordpress_data:
+  mysql_data:
+
+networks:
+  webweaver-network:
+    driver: bridge

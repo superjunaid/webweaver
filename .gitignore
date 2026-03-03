@@ -1,0 +1,36 @@
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+/tests/coverage/
+.phpunit.result.cache
+
+# Build/Deploy
+/build/
+/dist/
+
+# Node (if ever used)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Composer
+vendor/
+composer.lock
+
+# Environment
+.env
+.env.local
+*.log
+
+# Temp
+temp/
+tmp/
