@@ -25,6 +25,7 @@ class Plugin {
 
         // Register admin pages.
         add_action('admin_menu', [Admin\Menu::class, 'register_menu']);
+        add_action('admin_menu', [Admin\MCPConnection::class, 'register_menu']);
         add_action('admin_enqueue_scripts', [Admin\Assets::class, 'enqueue']);
 
         // Initialize builders.
