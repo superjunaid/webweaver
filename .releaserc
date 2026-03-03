@@ -1,0 +1,13 @@
+{
+  "version": "0.1.0",
+  "name": "WebWeaver",
+  "description": "AI-powered WordPress content creation via secure REST API",
+  "author": "WebWeaver Team",
+  "license": "GPL-2.0-or-later",
+  "requires_php": "7.4",
+  "requires_wordpress": "6.0",
+  "tested_up_to": "6.4",
+  "requires_plugins": [],
+  "domain_path": "/languages",
+  "text_domain": "webweaver"
+}
