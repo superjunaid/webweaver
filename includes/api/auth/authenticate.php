@@ -14,13 +14,10 @@ class Authenticate {
      * Called via init hook with priority 1 (very early)
      */
     public static function authenticate_rest_request() {
-        // Only process REST API requests
-        if (!defined('REST_REQUEST') || !REST_REQUEST) {
-            // Check if it's a REST request by examining the URL
-            $request_uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
-            if (strpos($request_uri, '/wp-json/wp-mcp/v1/') === false) {
-                return;
-            }
+        // Only process REST API requests for our namespace
+        $request_uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+        if (strpos($request_uri, '/wp-json/wp-mcp/v1/') === false) {
+            return;
         }
 
         // If user is already logged in, don't override
