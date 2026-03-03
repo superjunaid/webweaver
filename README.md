@@ -1,4 +1,4 @@
-# WebWeaver
+wh# WebWeaver
 
 **A WordPress.org plugin that turns any WP site into an AI-operable backend for content creation & editing via secure API.**
 
@@ -17,12 +17,23 @@ WP MCP Connector enables AI platforms (Claude, Manus, etc.) to design, create, a
 - ✅ **Media Support**: Upload images, set featured images
 - ✅ **Policy Engine**: Allowlist/denylist pages, post types, control publish access
 
+## 📖 Documentation
+
+| Guide | Purpose |
+|-------|---------|
+| **[QUICK_START.md](QUICK_START.md)** | 5-minute setup for developers |
+| **[SETUP_GUIDE.md](SETUP_GUIDE.md)** | Complete installation & configuration |
+| **[DEPLOYMENT.md](DEPLOYMENT.md)** | Production deployment instructions |
+| **[ARCHITECTURE.md](ARCHITECTURE.md)** | System design & technical overview |
+
 ## Installation
 
-1. **Download** the plugin or clone into `/wp-content/plugins/wordpress-mcp/`
+1. **Download** the plugin or clone into `/wp-content/plugins/webweaver/`
 2. **Activate** via WordPress admin (Plugins > Installed Plugins)
-3. **Configure** at WP Admin > WP MCP Connector > Settings
-4. **Generate** Application Password for API access (Users profile)
+3. **Configure** at WebWeaver > Settings
+4. **Generate** Application Password for API access (User Profile)
+
+👉 **[See SETUP_GUIDE.md for detailed instructions](SETUP_GUIDE.md)**
 
 ## Quick Start
 
