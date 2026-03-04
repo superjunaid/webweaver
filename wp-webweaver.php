@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WebWeaver
  * Description: AI-powered page builder for WordPress - create & edit pages with any AI agent
- * Version: 0.2.0
+ * Version: 0.2.3
  * Author: WebWeaver Team
  * License: GPL-2.0-or-later
  * Text Domain: webweaver
@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define constants.
-define('WEBWEAVER_VERSION', '0.2.0');
+define('WEBWEAVER_VERSION', '0.2.3');
 define('WEBWEAVER_PATH', plugin_dir_path(__FILE__));
 define('WEBWEAVER_URL', plugin_dir_url(__FILE__));
 define('WEBWEAVER_BASENAME', plugin_basename(__FILE__));
