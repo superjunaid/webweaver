@@ -23,9 +23,9 @@ class Tools {
 
     private static function get_user_capabilities() {
         return [
-            'can_read_posts' => current_user_can('read_posts'),
+            'can_read_posts' => current_user_can('read_post'),
             'can_edit_posts' => current_user_can('edit_posts'),
-            'can_create_posts' => current_user_can('create_posts'),
+            'can_create_posts' => current_user_can('edit_posts'),
             'can_publish_posts' => current_user_can('publish_posts'),
             'can_upload_files' => current_user_can('upload_files'),
         ];
