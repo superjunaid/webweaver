@@ -23,7 +23,7 @@ class Tools {
 
     private static function get_user_capabilities() {
         return [
-            'can_read_posts' => current_user_can('read_post'),
+            'can_read_posts' => current_user_can('edit_posts'),
             'can_edit_posts' => current_user_can('edit_posts'),
             'can_create_posts' => current_user_can('edit_posts'),
             'can_publish_posts' => current_user_can('publish_posts'),
